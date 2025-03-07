@@ -19,10 +19,6 @@ output "certificate_validation_name" {
   value = module.acm.certificate_validation_name
 }
 
-output "certificate_validation_type" {
-  value = module.acm.certificate_validation_type
-}
-
 output "certificate_validation_records" {
   value = module.acm.certificate_validation_records
 }

@@ -47,10 +47,21 @@ module.s3.aws_s3_bucket.techyblog_tfstate
 Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 
 Outputs:
+certificate_validation_name = "XXXXX.com."
 
-certificate_validation_name = "XXXXXX.com."
 certificate_validation_records = [
   "YYYYYY.acm-validations.aws.",
 ]
-certificate_validation_type = "CNAME"
 ```
+
+Then you will need to add the `certificate_validation_name` and `certificate_validation_records` as a CNAME record in your nameserver (e.g. Namecheap, GoDaddy, AWS Route 53,...).
+
+You can force Terraform to wait for the validation (active waiting until timeout) by adding the following in the `acm/main.tf`:
+
+```hcl
+resource "aws_acm_certificate_validation" "techyblog_cert_validation" {
+  certificate_arn = aws_acm_certificate.techyblog_certificate.arn
+}
+```
+
+### 2: 
