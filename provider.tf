@@ -7,6 +7,12 @@ terraform {
       version = "~> 5.0"
     }
   }
+
+  backend "s3" {
+    bucket = "techyblog-tfstate"
+    key    = "tfstate"
+    region = "us-east-1"
+  }
 }
 
 # Configure the AWS Provider
