@@ -25,7 +25,13 @@ aws sso login --profile your-aws-profile
 alias terraform="AWS_PROFILE=your-aws-profile terraform"
 ```
 
-- Then format, initialize and apply:
+- Checkout the branch [1-create-tfstate-bucket](https://github.com/polsm91/aws-terraform-website/tree/1-create-tfstate-bucket)
+```bash
+git fetch
+git checkout 1-create-tfstate-bucket
+```
+
+- Then format (optional), initialize, and apply:
 ```bash
 terraform fmt --recursive
 
@@ -35,6 +41,11 @@ terraform apply
 ```
 
 Now you have the S3 bucket ready, but the Terraform state is stored in your local machine. Let's fix it:
+
+- Checkout the branch [2-migrate-state](https://github.com/polsm91/aws-terraform-website/tree/2-migrate-state)
+```bash
+git checkout 2-migrate-state
+```
 
 ```bash
 terraform init -migrate-state
@@ -53,6 +64,11 @@ module.s3.aws_s3_bucket.techyblog_tfstate
 
 
 ### 2.1. Issue ACM Certificate
+
+- Checkout the branch [3-issue-acm-cert](https://github.com/polsm91/aws-terraform-website/tree/3-issue-acm-cert)
+```bash
+git checkout 3-issue-acm-cert
+```
 
 You will be prompted to fill in the domain name. Each time you apply the plan the question will pop up, so I recommend editing the file `main.tf` to add a default value to the variable such as:
 
@@ -89,6 +105,10 @@ resource "aws_acm_certificate_validation" "techyblog_cert_validation" {
 
 ### 2.2. Create S3 bucket and CloudFront distribution
 
+- Checkout the branch [main](https://github.com/polsm91/aws-terraform-website/tree/main)
+```bash
+git checkout main
+```
 We create a bucket to store our Single Page Application assuming the root document object will be `index.html`.
 
 In this setup, we will limit traffic to S3 only to CloudFront. This method ensures that all requests hit CloudFront and uses its high-speed distribution network, caching, and security measures we might implement in front of CloudFront.
@@ -115,7 +135,6 @@ data "aws_cloudfront_cache_policy" "caching_disabled" {
   name = "Managed-CachingDisabled"
 }
 ```
-
 
 
 ### 3.1. Possible next steps
