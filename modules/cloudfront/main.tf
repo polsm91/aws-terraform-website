@@ -1,7 +1,3 @@
-# Lookup the Managed-CachingDisabled policy
-data "aws_cloudfront_cache_policy" "caching_disabled" {
-  name = "Managed-CachingDisabled"
-}
 
 resource "aws_cloudfront_origin_access_control" "techyblog" {
   name                              = "techyblog-oac"
