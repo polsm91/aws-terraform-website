@@ -8,20 +8,6 @@ resource "aws_s3_bucket" "techyblog_webui" {
   }
 }
 
-
-
-resource "aws_s3_bucket_website_configuration" "techyblog_webui" {
-  bucket = aws_s3_bucket.techyblog_webui.id
-
-  index_document {
-    suffix = "index.html"
-  }
-
-  error_document {
-    key = "index.html"
-  }
-}
-
 resource "aws_s3_bucket_public_access_block" "techyblog_webui" {
   bucket                  = aws_s3_bucket.techyblog_webui.id
   block_public_acls       = true
