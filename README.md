@@ -1,6 +1,6 @@
 # Website on AWS S3 with Terraform
 
-Minimal infrastructure to set up a Single Page Appliaction (SPA) website on AWS. The website will run at no cost unless there is heavy traffic and it gets past the limits of the AWS Free Tier.
+Minimal infrastructure to set up a Single-Page Application (SPA) website on AWS. The website will run at no cost unless there is heavy traffic and it gets past the limits of the AWS Free Tier. A more detailed explanation of the code [can be found here](https://pol-santamaria.com/tech/aws-terraform-website).
 
 - [1. Working environment](#1-working-environment)
 - [2. Deploy the infrastructure](#2-deploy-the-infrastructure-basic-setup-s3--cloudfront)
@@ -60,7 +60,7 @@ module.s3.aws_s3_bucket.techyblog_tfstate
 
 
 ## 2. Deploy the infrastructure: Basic setup (S3 + CloudFront)
-> **Goal**: Setup the minimal infrastructure for a simple SPA on S3, using CloudFront to speed up the serving, and HTTPS with our domain.
+> **Goal**: Set up the minimal infrastructure for a simple SPA on S3, using CloudFront to speed up the serving, and HTTPS with our domain.
 
 
 ### 2.1. Issue ACM Certificate
@@ -95,7 +95,7 @@ certificate_validation_records = [
 
 Add the `certificate_validation_name` and `certificate_validation_records` as a CNAME record in your nameserver (e.g. Namecheap, GoDaddy, AWS Route 53,...).
 
-Afterwards, If you want to monitor whether the certificate has been validated by AWS, you can do so using the AWS CLI/UI, or add the following into `acm/main.tf` and run `terraform apply`. It will perform an active wait (until Terraform timeouts) on the validation process:
+Afterward, If you want to monitor whether the certificate has been validated by AWS, you can do so using the AWS CLI/UI, or add the following into `acm/main.tf` and run `terraform apply`. It will perform an active wait (until Terraform timeouts) on the validation process:
 
 ```hcl
 resource "aws_acm_certificate_validation" "techyblog_cert_validation" {
@@ -140,3 +140,4 @@ data "aws_cloudfront_cache_policy" "caching_disabled" {
 ### 3.1. Possible next steps
 - Secure CloudFront with AWS WAF.
 - Add a backend to serve API requests.
+- Add a caching policy, `forwarded_values` was deprecated.
